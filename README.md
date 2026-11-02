@@ -1,193 +1,202 @@
-# 🏠 Prediksi Harga Rumah di Depok Menggunakan Machine Learning
+<div align="center">
 
-![Python](https://img.shields.io/badge/Python-3.13-blue)
-![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-RandomForest-orange)
-![Streamlit](https://img.shields.io/badge/Streamlit-Deployed-red)
-![License](https://img.shields.io/badge/License-Educational-green)
+# 🏠 Prediksi Harga Rumah di Depok
 
-## 📌 Deskripsi Proyek
+### Machine Learning · Random Forest Regression · Streamlit
 
-Proyek ini merupakan implementasi Machine Learning untuk memprediksi harga rumah di Kota Depok berdasarkan karakteristik properti menggunakan algoritma **Random Forest Regression**.
+![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-Random%20Forest-F7931E?logo=scikitlearn&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-Web%20App-FF4B4B?logo=streamlit&logoColor=white)
+![Project](https://img.shields.io/badge/Type-Academic%20Project-273746)
 
-Aplikasi dibangun menggunakan **Python**, **Scikit-Learn**, dan **Streamlit**, kemudian dideploy sehingga dapat digunakan secara online.
+**Proyek akademik untuk memperkirakan harga rumah di Depok berdasarkan karakteristik properti, mulai dari eksplorasi data dan pemodelan hingga aplikasi prediksi berbasis web.**
 
----
+[**🚀 Demo Aplikasi**](https://uas-machine-learning-prediksi-harga-rumah-depok-akyvtuz6m8nj5n.streamlit.app/) · [**💻 Kode Aplikasi**](app.py) · [**📓 Notebook**](notebook/) · [**📂 Dataset**](dataset/)
 
-## 🌐 Demo Aplikasi
-
-**Streamlit**
-
-https://uas-machine-learning-prediksi-harga-rumah-depok-akyvtuz6m8nj5n.streamlit.app/
+</div>
 
 ---
 
-## 🎯 Tujuan
+## Ringkasan Proyek
 
-- Memprediksi harga rumah berdasarkan spesifikasi rumah.
-- Membandingkan performa model Machine Learning.
-- Mengembangkan aplikasi prediksi berbasis web menggunakan Streamlit.
-- Menerapkan proses Machine Learning mulai dari preprocessing hingga deployment.
+Proyek ini mempelajari penggunaan **machine learning untuk memprediksi harga rumah di Kota Depok**, menggunakan informasi seperti luas bangunan, luas tanah, jumlah kamar, garasi, dan lokasi. Dua pendekatan regresi dibandingkan: **Linear Regression** sebagai model pembanding dan **Random Forest Regression** sebagai model utama.
 
----
+Berdasarkan hasil evaluasi yang dilaporkan dalam proyek, Random Forest memberikan **R² = 0,797** dan **MAE = Rp266.100.206**, lebih baik daripada Linear Regression pada kedua metrik tersebut. Hasil tersebut merupakan estimasi berdasarkan dataset yang digunakan, **bukan appraisal atau penilaian resmi suatu properti**.
 
-## 📊 Dataset
+### Tujuan
 
-Dataset yang digunakan merupakan data penjualan rumah di Kota Depok.
+- Mengeksplorasi faktor-faktor yang berkaitan dengan harga rumah pada data yang digunakan.
+- Mempersiapkan data untuk pemodelan regresi melalui cleaning dan preprocessing.
+- Membandingkan hasil Linear Regression dengan Random Forest Regression.
+- Menyajikan estimasi harga melalui aplikasi interaktif berbasis **Streamlit**.
 
-Jumlah data awal
+## Dataset
 
-- 24.561 data
+Dokumentasi proyek mencatat data properti rumah di Depok dengan ringkasan berikut:
 
-Jumlah data setelah cleaning
+| Informasi | Nilai |
+|---|---|
+| Jumlah data awal | **24.561** baris |
+| Jumlah data setelah cleaning | **19.619** baris |
+| Target prediksi | **Harga rumah** |
+| Tipe permasalahan | **Regresi** |
 
-- 19.619 data
+**Variabel input yang didokumentasikan:**
 
-Target Prediksi
+| Fitur | Penjelasan |
+|---|---|
+| Jumlah kamar tidur | Banyaknya kamar tidur |
+| Jumlah kamar mandi | Banyaknya kamar mandi |
+| Jumlah garasi | Informasi kapasitas/jumlah garasi dalam dataset |
+| Luas tanah | Luas bidang tanah |
+| Luas bangunan | Luas bangunan rumah |
+| Lokasi | Informasi area/lokasi properti |
 
-- Harga Rumah
+> **Catatan sumber data:** README awal belum mencantumkan tautan sumber atau ketentuan penggunaan dataset. Informasi tersebut perlu dilengkapi berdasarkan sumber data yang sebenarnya sebelum dataset digunakan kembali atau didistribusikan lebih jauh. Nama kolom teknis dan satuan luas dapat diperiksa pada file dataset/notebook.
 
-Fitur yang digunakan
+## Metodologi
 
-- Jumlah Kamar Tidur
-- Jumlah Kamar Mandi
-- Jumlah Garasi
-- Luas Tanah
-- Luas Bangunan
-- Lokasi
+Alur kerja proyek sebagaimana didokumentasikan:
 
----
-
-## ⚙️ Tahapan Machine Learning
-
-1. Data Cleaning
-2. Exploratory Data Analysis (EDA)
-3. Menghapus Missing Value
-4. Menghapus Data Duplikat
-5. Menghapus Outlier
-6. Encoding Variabel Lokasi
-7. Train Test Split
-8. Training Model
-9. Evaluasi Model
-10. Deployment
-
----
-
-## 🤖 Algoritma
-
-Model utama yang digunakan adalah
-
-**Random Forest Regression**
-
-Model pembanding
-
-- Linear Regression
-
----
-
-## 📈 Hasil Evaluasi
-
-| Model | MAE | R² Score |
-|--------|---------:|---------:|
-| Linear Regression | Rp326.133.837 | 0.725 |
-| Random Forest Regression | Rp266.100.206 | **0.797** |
-
-Model terbaik yang dipilih adalah **Random Forest Regression**.
-
----
-
-## 📌 Feature Importance
-
-Berdasarkan hasil pelatihan model, fitur yang paling berpengaruh terhadap harga rumah adalah
-
-1. Luas Bangunan
-2. Luas Tanah
-3. Kamar Mandi
-4. Kamar Tidur
-5. Lokasi
-6. Garasi
-
----
-
-## 🖥️ Tampilan Aplikasi
-
-Fitur aplikasi meliputi
-
-- Input spesifikasi rumah
-- Prediksi harga rumah
-- Informasi model
-- Statistik dataset
-- Visualisasi Feature Importance
-- Ringkasan hasil prediksi
-
----
-
-## 📁 Struktur Project
-
-```
-UAS_MachineLearning
-│
-├── dataset
-├── images
-├── models
-├── notebook
-├── presentation
-├── report
-│
-├── app.py
-├── requirements.txt
-└── README.md
+```text
+Dataset awal
+    ↓
+Data cleaning dan pemeriksaan data
+    ↓
+Penanganan missing values, duplikasi, dan outlier
+    ↓
+Exploratory Data Analysis (EDA)
+    ↓
+Encoding variabel lokasi
+    ↓
+Train–test split
+    ↓
+Training: Linear Regression & Random Forest Regression
+    ↓
+Evaluasi model menggunakan MAE dan R²
+    ↓
+Aplikasi prediksi dengan Streamlit
 ```
 
----
+Detail implementasi (termasuk proporsi train–test split, teknik penanganan outlier, dan parameter model) sebaiknya dirujuk dari [notebook eksperimen](notebook/), karena belum dijelaskan secara spesifik dalam README awal.
 
-## ▶️ Menjalankan Project
+## Model dan Hasil Evaluasi
 
-Clone repository
+| Model | MAE (lebih rendah lebih baik) | R² (lebih tinggi lebih baik) |
+|---|---:|---:|
+| Linear Regression | Rp326.133.837 | 0,725 |
+| **Random Forest Regression** | **Rp266.100.206** | **0,797** |
+
+**Model yang dipilih:** Random Forest Regression, berdasarkan perbandingan kedua metrik di atas.
+
+**Cara membaca metrik:**
+
+- **MAE (Mean Absolute Error)** menyatakan rata-rata besar selisih absolut antara harga aktual dan prediksi. Pada hasil yang dilaporkan, nilainya sekitar **Rp266,1 juta** untuk Random Forest.
+- **R²** mengukur seberapa baik model menjelaskan variasi nilai target dibandingkan prediksi baseline berbasis rata-rata. Nilai **0,797** menunjukkan kesesuaian yang lebih baik dibandingkan model pembanding pada evaluasi yang didokumentasikan, tetapi **tidak berarti setiap harga rumah diprediksi dengan akurasi 79,7%**.
+
+> Angka di atas disalin dari hasil yang tercantum pada dokumentasi awal; README ini tidak melakukan pelatihan atau pengujian ulang model. Untuk menilai kemampuan generalisasi, perlu ditinjau bagaimana data dibagi, bagaimana preprocessing diterapkan, dan apakah ada potensi data leakage.
+
+### Feature Importance
+
+Urutan fitur yang dilaporkan dalam dokumentasi proyek:
+
+1. **Luas bangunan**
+2. **Luas tanah**
+3. **Kamar mandi**
+4. **Kamar tidur**
+5. **Lokasi**
+6. **Garasi**
+
+*Feature importance* menjelaskan kontribusi relatif fitur terhadap prediksi model menurut metode yang digunakan. Peringkat ini **bukan bukti hubungan sebab-akibat** atau jaminan bahwa urutannya selalu sama pada dataset lain.
+
+## Aplikasi Streamlit
+
+Aplikasi didokumentasikan memiliki fitur:
+
+- Form input karakteristik rumah.
+- Prediksi atau estimasi harga rumah.
+- Informasi model.
+- Ringkasan statistik dataset.
+- Visualisasi feature importance.
+- Ringkasan hasil prediksi.
+
+**[Buka demo aplikasi Streamlit](https://uas-machine-learning-prediksi-harga-rumah-depok-akyvtuz6m8nj5n.streamlit.app/)**
+
+> Jika demo sedang tidak aktif atau memerlukan waktu untuk memulai, proyek juga dapat dicoba secara lokal mengikuti instruksi di bawah. Ketersediaan live demo tidak diuji ulang dalam penyusunan dokumen ini.
+
+## Struktur Repositori
+
+Struktur tingkat atas berikut disesuaikan dengan tampilan repositori yang telah ditunjukkan:
+
+```text
+UAS-Machine-Learning-Prediksi-Harga-Rumah-Depok/
+├── dataset/          # Berkas dataset
+├── models/           # Berkas model yang disimpan
+├── notebook/         # Notebook analisis dan pelatihan
+├── app.py            # Aplikasi Streamlit
+├── requirements.txt  # Dependensi Python
+└── README.md         # Dokumentasi proyek
+```
+
+## Menjalankan Aplikasi Secara Lokal
+
+### 1. Clone repositori
 
 ```bash
 git clone https://github.com/zakyilhamf647586-spec/UAS-Machine-Learning-Prediksi-Harga-Rumah-Depok.git
-```
-
-Masuk folder project
-
-```bash
 cd UAS-Machine-Learning-Prediksi-Harga-Rumah-Depok
 ```
 
-Install library
+### 2. Buat virtual environment (direkomendasikan)
 
-```bash
-pip install -r requirements.txt
+**Windows PowerShell:**
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 ```
 
-Jalankan aplikasi
+**macOS / Linux:**
 
 ```bash
-streamlit run app.py
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
----
+### 3. Instal dependensi
 
-## 🛠️ Tools
+```bash
+python -m pip install -r requirements.txt
+```
 
-- Python
-- Pandas
-- NumPy
-- Scikit-Learn
-- Matplotlib
-- Streamlit
-- VS Code
-- Git
-- GitHub
+### 4. Jalankan Streamlit
 
----
+```bash
+python -m streamlit run app.py
+```
 
-## 👨‍💻 Author
+Aplikasi biasanya dibuka melalui alamat lokal yang ditampilkan Streamlit di terminal. Pastikan berkas model dan dataset yang dibutuhkan oleh `app.py` tersedia pada path yang sesuai. Perintah di atas belum diuji ulang pada lingkungan baru dalam audit berbasis README ini.
 
-**Zaky Ilham Ferdiansyah**
+## Teknologi
 
-Program Studi Teknik Informatika
+- **Pemrosesan data:** Python, Pandas, NumPy
+- **Machine learning:** scikit-learn, Linear Regression, Random Forest Regression
+- **Visualisasi:** Matplotlib
+- **Aplikasi web:** Streamlit
+- **Pengembangan dan versi kode:** VS Code, Git, GitHub
 
-Universitas Dian Nuswantoro
+## Keterbatasan dan Pengembangan Selanjutnya
 
+- Prediksi merupakan **estimasi statistik**, bukan nilai appraisal resmi atau rekomendasi transaksi.
+- Performa yang dilaporkan bergantung pada data, pembagian evaluasi, serta proses preprocessing; belum tentu berlaku sama untuk properti atau periode lain.
+- Sumber, izin penggunaan, cakupan waktu, dan representativitas dataset perlu didokumentasikan lebih lengkap.
+- Detail validasi, parameter model, dan pencegahan **data leakage** perlu dikonfirmasi dari notebook sebelum klaim reproducibility yang lebih kuat dibuat.
+- Pengembangan berikutnya dapat mencakup pengujian pada data baru, analisis error per rentang harga, dan penjelasan faktor prediksi yang lebih mendalam.
+
+## Penulis
+
+**Zaky Ilham Ferdiansyah**  
+Program Studi Teknik Informatika · Universitas Dian Nuswantoro  
 2026
+
+[GitHub](https://github.com/zakyilhamf647586-spec) · [LinkedIn](https://www.linkedin.com/in/zaky-ilham-ferdiansyah/)
