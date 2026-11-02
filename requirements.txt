@@ -1,6 +1,6 @@
-streamlit
-pandas
-numpy
-scikit-learn
-joblib
-matplotlib
+# Trained on Python 3.13.5; scikit-learn model pickle compatibility depends on version.
+streamlit>=1.40,<2
+pandas==2.2.3
+numpy==2.3.5
+scikit-learn==1.8.0
+joblib>=1.4,<2
