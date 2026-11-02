@@ -39,6 +39,27 @@ Dengan batas tersebut, **23.292 baris termasuk cakupan**, sedangkan **1.269 dike
 
 **Sumber awal, periode pengumpulan, status harga (iklan/transaksi), dan hak redistribusi data belum terdokumentasi.** Verifikasi sebelum menerbitkan atau menggunakan data untuk tujuan lain.
 
+## Sumber Data dan Lisensi
+
+Dataset: Data Harga Rumah di Depok (Januari 2026)
+
+- Penyedia dataset: Dimas Maulana Putra
+- Platform: Kaggle
+- Sumber data asal: Rumah123.com
+- Periode pengumpulan: Januari 2026
+- Lisensi yang tercantum di Kaggle: CC0 1.0 Public Domain
+
+Tautan dataset:
+https://www.kaggle.com/datasets/dimasmaulanaputra/data-harga-rumah-di-depok
+
+Dataset digunakan untuk eksperimen akademik dalam
+pengembangan dan evaluasi model prediksi harga rumah.
+
+Catatan: Lisensi CC0 tercantum pada halaman Kaggle.
+Status hak penggunaan dan redistribusi data yang
+berasal dari platform properti pihak ketiga belum
+diverifikasi secara independen.
+
 ## Metodologi
 
 1. Membaca dataset dan memeriksa kolom, nilai kosong, duplikat, serta nilai ekstrem.
