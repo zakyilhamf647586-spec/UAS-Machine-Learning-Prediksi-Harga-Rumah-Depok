@@ -37,7 +37,7 @@ Untuk mengurangi pengaruh nilai ekstrem dalam **eksperimen ini**, kami menerapka
 
 Dengan batas tersebut, **23.292 baris termasuk cakupan**, sedangkan **1.269 dikeluarkan**. Batas ini merupakan keputusan pemodelan yang membatasi populasi yang diuji—bukan fakta universal tentang harga rumah di Depok dan bukan jaminan bahwa semua data yang tersisa bersih.
 
-**Sumber awal, periode pengumpulan, status harga (iklan/transaksi), dan hak redistribusi data belum terdokumentasi.** Verifikasi sebelum menerbitkan atau menggunakan data untuk tujuan lain.
+**Sumber dataset dan periode pengumpulan telah didokumentasikan berdasarkan informasi yang tersedia di Kaggle. Namun, status harga sebagai harga penawaran atau transaksi aktual belum diverifikasi secara independen. Hak redistribusi data yang berasal dari platform pihak ketiga juga masih memerlukan pemeriksaan lebih lanjut.** Verifikasi sebelum menerbitkan atau menggunakan data untuk tujuan lain.
 
 ## Sumber Data dan Lisensi
 
