@@ -1,202 +1,155 @@
-<div align="center">
+# 🏠 Prediksi Harga Rumah di Depok — Machine Learning
 
-# 🏠 Prediksi Harga Rumah di Depok
+**Proyek akademik · Python · Scikit-learn · Random Forest · Streamlit**
 
-### Machine Learning · Random Forest Regression · Streamlit
+> **Catatan:** Aplikasi ini merupakan eksperimen pembelajaran *regresi harga properti*, **bukan** jasa penilaian rumah resmi. Dataset, cakupan data, dan galat model membatasi keandalan hasilnya.
 
-![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-Random%20Forest-F7931E?logo=scikitlearn&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-Web%20App-FF4B4B?logo=streamlit&logoColor=white)
-![Project](https://img.shields.io/badge/Type-Academic%20Project-273746)
+## Ringkasan
 
-**Proyek akademik untuk memperkirakan harga rumah di Depok berdasarkan karakteristik properti, mulai dari eksplorasi data dan pemodelan hingga aplikasi prediksi berbasis web.**
+Proyek ini memprediksi harga rumah dari jumlah kamar tidur, kamar mandi, garasi, luas tanah, luas bangunan, dan lokasi di Depok. Model dibangun dengan pipeline preprocessing yang **sama pada training dan inference**, lalu dibandingkan pada data uji yang tidak digunakan untuk training.
 
-[**🚀 Demo Aplikasi**](https://uas-machine-learning-prediksi-harga-rumah-depok-akyvtuz6m8nj5n.streamlit.app/) · [**💻 Kode Aplikasi**](app.py) · [**📓 Notebook**](notebook/) · [**📂 Dataset**](dataset/)
+- **Model terpilih:** Random Forest Regression (150 pohon, `max_depth=20`, `min_samples_leaf=2`).
+- **Hasil pada holdout:** **R² = 0,839**; **MAE = Rp406,82 juta**; RMSE sekitar Rp712,10 juta.
+- **Pembanding Linear Regression:** R² = 0,765; MAE = Rp516,60 juta.
+- **Split:** 80%/20% berbasis *group* dari kombinasi fitur yang identik (18.670 baris latih, 4.622 baris uji), `random_state=42`.
 
-</div>
+Angka di atas berlaku untuk **eksperimen baru dengan cakupan data yang ditetapkan di bawah**, bukan pengganti langsung angka dari notebook UAS sebelumnya.
 
----
+## Dataset dan ruang lingkup
 
-## Ringkasan Proyek
+Dataset yang diberikan memiliki **24.561 baris**, tujuh kolom, **37 nilai lokasi unik**, tanpa nilai kosong dan tanpa baris yang sepenuhnya identik. Namun, nilai ekstrem perlu ditinjau secara kritis; dataset mencantumkan harga maksimum Rp995 miliar dan luas tanah maksimum 818.801.098 m².
 
-Proyek ini mempelajari penggunaan **machine learning untuk memprediksi harga rumah di Kota Depok**, menggunakan informasi seperti luas bangunan, luas tanah, jumlah kamar, garasi, dan lokasi. Dua pendekatan regresi dibandingkan: **Linear Regression** sebagai model pembanding dan **Random Forest Regression** sebagai model utama.
+| Variabel | Peran | Keterangan |
+|---|---|---|
+| Harga | Target | Rupiah (Rp) |
+| Kamar Tidur | Fitur | Jumlah |
+| Kamar Mandi | Fitur | Jumlah |
+| Garasi | Fitur | Jumlah |
+| Luas Tanah | Fitur | m² |
+| Luas Bangunan | Fitur | m² |
+| Lokasi | Fitur | Kategori lokasi |
 
-Berdasarkan hasil evaluasi yang dilaporkan dalam proyek, Random Forest memberikan **R² = 0,797** dan **MAE = Rp266.100.206**, lebih baik daripada Linear Regression pada kedua metrik tersebut. Hasil tersebut merupakan estimasi berdasarkan dataset yang digunakan, **bukan appraisal atau penilaian resmi suatu properti**.
+Untuk mengurangi pengaruh nilai ekstrem dalam **eksperimen ini**, kami menerapkan batas cakupan tetap **sebelum splitting**, bukan cutoff IQR yang dipelajari dari data uji:
 
-### Tujuan
+- Harga: Rp100 juta–Rp10 miliar.
+- Luas tanah dan bangunan: 20–1.500 m².
+- Kamar tidur dan mandi: 1–15; garasi: 0–10.
 
-- Mengeksplorasi faktor-faktor yang berkaitan dengan harga rumah pada data yang digunakan.
-- Mempersiapkan data untuk pemodelan regresi melalui cleaning dan preprocessing.
-- Membandingkan hasil Linear Regression dengan Random Forest Regression.
-- Menyajikan estimasi harga melalui aplikasi interaktif berbasis **Streamlit**.
+Dengan batas tersebut, **23.292 baris termasuk cakupan**, sedangkan **1.269 dikeluarkan**. Batas ini merupakan keputusan pemodelan yang membatasi populasi yang diuji—bukan fakta universal tentang harga rumah di Depok dan bukan jaminan bahwa semua data yang tersisa bersih.
 
-## Dataset
+**Sumber dataset dan periode pengumpulan telah didokumentasikan berdasarkan informasi yang tersedia di Kaggle. Namun, status harga sebagai harga penawaran atau transaksi aktual belum diverifikasi secara independen. Hak redistribusi data yang berasal dari platform pihak ketiga juga masih memerlukan pemeriksaan lebih lanjut.** Verifikasi sebelum menerbitkan atau menggunakan data untuk tujuan lain.
 
-Dokumentasi proyek mencatat data properti rumah di Depok dengan ringkasan berikut:
+## Sumber Data dan Lisensi
 
-| Informasi | Nilai |
-|---|---|
-| Jumlah data awal | **24.561** baris |
-| Jumlah data setelah cleaning | **19.619** baris |
-| Target prediksi | **Harga rumah** |
-| Tipe permasalahan | **Regresi** |
+Dataset: Data Harga Rumah di Depok (Januari 2026)
 
-**Variabel input yang didokumentasikan:**
+- Penyedia dataset: Dimas Maulana Putra
+- Platform: Kaggle
+- Sumber data asal: Rumah123.com
+- Periode pengumpulan: Januari 2026
+- Lisensi yang tercantum di Kaggle: CC0 1.0 Public Domain
 
-| Fitur | Penjelasan |
-|---|---|
-| Jumlah kamar tidur | Banyaknya kamar tidur |
-| Jumlah kamar mandi | Banyaknya kamar mandi |
-| Jumlah garasi | Informasi kapasitas/jumlah garasi dalam dataset |
-| Luas tanah | Luas bidang tanah |
-| Luas bangunan | Luas bangunan rumah |
-| Lokasi | Informasi area/lokasi properti |
+Tautan dataset:
+https://www.kaggle.com/datasets/dimasmaulanaputra/data-harga-rumah-di-depok
 
-> **Catatan sumber data:** README awal belum mencantumkan tautan sumber atau ketentuan penggunaan dataset. Informasi tersebut perlu dilengkapi berdasarkan sumber data yang sebenarnya sebelum dataset digunakan kembali atau didistribusikan lebih jauh. Nama kolom teknis dan satuan luas dapat diperiksa pada file dataset/notebook.
+Dataset digunakan untuk eksperimen akademik dalam
+pengembangan dan evaluasi model prediksi harga rumah.
+
+Catatan: Lisensi CC0 tercantum pada halaman Kaggle.
+Status hak penggunaan dan redistribusi data yang
+berasal dari platform properti pihak ketiga belum
+diverifikasi secara independen.
 
 ## Metodologi
 
-Alur kerja proyek sebagaimana didokumentasikan:
+1. Membaca dataset dan memeriksa kolom, nilai kosong, duplikat, serta nilai ekstrem.
+2. Menentukan batas eksplisit untuk populasi analisis, lalu memfilter data.
+3. Membagi data menggunakan `GroupShuffleSplit(test_size=0.2, random_state=42)` sehingga kombinasi input yang sama tidak tersebar di kedua subset. Ada **3.739 baris** di dalam cakupan yang memiliki kombinasi fitur identik dengan baris lain; ini tidak sama dengan membuktikan duplikasi properti.
+4. Membentuk pipeline `ColumnTransformer`: lima fitur numerik diteruskan; `Lokasi` menggunakan `OneHotEncoder(handle_unknown='ignore')`, **fit hanya pada data latih**.
+5. Melatih Linear Regression dan Random Forest; membandingkan pada holdout yang sama.
+6. Menyimpan pipeline final beserta `metrics.json`; aplikasi Streamlit memuat keduanya tanpa melakukan encoding lokasi secara terpisah.
 
-```text
-Dataset awal
-    ↓
-Data cleaning dan pemeriksaan data
-    ↓
-Penanganan missing values, duplikasi, dan outlier
-    ↓
-Exploratory Data Analysis (EDA)
-    ↓
-Encoding variabel lokasi
-    ↓
-Train–test split
-    ↓
-Training: Linear Regression & Random Forest Regression
-    ↓
-Evaluasi model menggunakan MAE dan R²
-    ↓
-Aplikasi prediksi dengan Streamlit
-```
+## Evaluasi model
 
-Detail implementasi (termasuk proporsi train–test split, teknik penanganan outlier, dan parameter model) sebaiknya dirujuk dari [notebook eksperimen](notebook/), karena belum dijelaskan secara spesifik dalam README awal.
+| Model | MAE pada data uji | RMSE pada data uji | R² data uji |
+|---|---:|---:|---:|
+| Baseline (median harga latih) | Rp1.175,83 juta | Rp1.889,75 juta | -0,131 |
+| Linear Regression | Rp516,60 juta | Rp862,03 juta | 0,765 |
+| **Random Forest (terpilih)** | **Rp406,82 juta** | **Rp712,10 juta** | **0,839** |
 
-## Model dan Hasil Evaluasi
+**MAE** adalah rata-rata besar selisih absolut antara harga aktual dan harga prediksi. Nilai Rp406,82 juta masih merupakan ketidakpastian yang besar untuk keputusan finansial.
 
-| Model | MAE (lebih rendah lebih baik) | R² (lebih tinggi lebih baik) |
+### Error per rentang harga aktual — Random Forest
+
+| Rentang harga aktual | Jumlah data uji | MAE |
 |---|---:|---:|
-| Linear Regression | Rp326.133.837 | 0,725 |
-| **Random Forest Regression** | **Rp266.100.206** | **0,797** |
+| Hingga Rp1 miliar | 1.745 | Rp184,75 juta |
+| Di atas Rp1 miliar hingga Rp3 miliar | 2.003 | Rp367,59 juta |
+| Lebih dari Rp3 miliar | 874 | Rp940,09 juta |
 
-**Model yang dipilih:** Random Forest Regression, berdasarkan perbandingan kedua metrik di atas.
+**Perlu dicatat:** hasil di atas berasal dari **satu split**; split tersebut juga digunakan untuk membandingkan dua kandidat model, sehingga bukan test set independen setelah pemilihan model. Belum ada cross-validation, evaluasi temporal, atau validasi data eksternal. R² training sebesar 0,954 dibandingkan R² testing 0,839 mengindikasikan selisih kinerja yang perlu dianalisis sebelum menyatakan model siap dipakai secara luas.
 
-**Cara membaca metrik:**
+## Jalankan proyek
 
-- **MAE (Mean Absolute Error)** menyatakan rata-rata besar selisih absolut antara harga aktual dan prediksi. Pada hasil yang dilaporkan, nilainya sekitar **Rp266,1 juta** untuk Random Forest.
-- **R²** mengukur seberapa baik model menjelaskan variasi nilai target dibandingkan prediksi baseline berbasis rata-rata. Nilai **0,797** menunjukkan kesesuaian yang lebih baik dibandingkan model pembanding pada evaluasi yang didokumentasikan, tetapi **tidak berarti setiap harga rumah diprediksi dengan akurasi 79,7%**.
-
-> Angka di atas disalin dari hasil yang tercantum pada dokumentasi awal; README ini tidak melakukan pelatihan atau pengujian ulang model. Untuk menilai kemampuan generalisasi, perlu ditinjau bagaimana data dibagi, bagaimana preprocessing diterapkan, dan apakah ada potensi data leakage.
-
-### Feature Importance
-
-Urutan fitur yang dilaporkan dalam dokumentasi proyek:
-
-1. **Luas bangunan**
-2. **Luas tanah**
-3. **Kamar mandi**
-4. **Kamar tidur**
-5. **Lokasi**
-6. **Garasi**
-
-*Feature importance* menjelaskan kontribusi relatif fitur terhadap prediksi model menurut metode yang digunakan. Peringkat ini **bukan bukti hubungan sebab-akibat** atau jaminan bahwa urutannya selalu sama pada dataset lain.
-
-## Aplikasi Streamlit
-
-Aplikasi didokumentasikan memiliki fitur:
-
-- Form input karakteristik rumah.
-- Prediksi atau estimasi harga rumah.
-- Informasi model.
-- Ringkasan statistik dataset.
-- Visualisasi feature importance.
-- Ringkasan hasil prediksi.
-
-**[Buka demo aplikasi Streamlit](https://uas-machine-learning-prediksi-harga-rumah-depok-akyvtuz6m8nj5n.streamlit.app/)**
-
-> Jika demo sedang tidak aktif atau memerlukan waktu untuk memulai, proyek juga dapat dicoba secara lokal mengikuti instruksi di bawah. Ketersediaan live demo tidak diuji ulang dalam penyusunan dokumen ini.
-
-## Struktur Repositori
-
-Struktur tingkat atas berikut disesuaikan dengan tampilan repositori yang telah ditunjukkan:
-
-```text
-UAS-Machine-Learning-Prediksi-Harga-Rumah-Depok/
-├── dataset/          # Berkas dataset
-├── models/           # Berkas model yang disimpan
-├── notebook/         # Notebook analisis dan pelatihan
-├── app.py            # Aplikasi Streamlit
-├── requirements.txt  # Dependensi Python
-└── README.md         # Dokumentasi proyek
-```
-
-## Menjalankan Aplikasi Secara Lokal
-
-### 1. Clone repositori
+**Lingkungan training yang diuji:** Python 3.13.5, pandas 2.2.3, NumPy 2.3.5, Scikit-learn 1.8.0. Eksekusi UI Streamlit pada server publik belum diverifikasi dalam audit ini.
 
 ```bash
 git clone https://github.com/zakyilhamf647586-spec/UAS-Machine-Learning-Prediksi-Harga-Rumah-Depok.git
 cd UAS-Machine-Learning-Prediksi-Harga-Rumah-Depok
-```
-
-### 2. Buat virtual environment (direkomendasikan)
-
-**Windows PowerShell:**
-
-```powershell
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
 ```
 
-**macOS / Linux:**
+Aktivasi: Windows PowerShell: `.venv\Scripts\Activate.ps1` atau Linux/macOS: `source .venv/bin/activate`.
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
+pip install -r requirements.txt
+python train_model.py
+streamlit run app.py
 ```
 
-### 3. Instal dependensi
+`train_model.py` membutuhkan dataset pada `dataset/Cleaned_Final_Rumah.csv`. File model dan metrik terbaru (`models/house_price_pipeline.joblib`, `metrics.json`) dapat dihasilkan ulang dengan script tersebut.
+
+> **Keamanan:** file `.joblib`/`.pkl` merupakan format pickle yang dapat menjalankan kode pada saat dimuat. Muat hanya artefak dari training Anda atau sumber terpercaya. Hindari artefak asing.
+
+## Struktur proyek versi ini
+
+```text
+.
+├── app.py
+├── train_model.py
+├── requirements.txt
+├── metrics.json
+├── models/
+│   └── house_price_pipeline.joblib
+├── dataset/
+│   └── Cleaned_Final_Rumah.csv
+├── notebook/
+│   └── Validasi_Model_Depok.ipynb
+├── tests/
+│   └── test_model.py
+├── AUDIT_VALIDASI.md
+└── README.md
+```
+
+## Testing
 
 ```bash
-python -m pip install -r requirements.txt
+pip install pytest
+python -m pytest tests/test_model.py -q
 ```
 
-### 4. Jalankan Streamlit
+Pengujian mencakup prediksi untuk setiap lokasi, pemisahan kombinasi fitur identik antara data latih/uji, serta konsistensi angka metrik dari model yang benar-benar disimpan.
 
-```bash
-python -m streamlit run app.py
-```
+## Perubahan dibanding notebook UAS sebelumnya
 
-Aplikasi biasanya dibuka melalui alamat lokal yang ditampilkan Streamlit di terminal. Pastikan berkas model dan dataset yang dibutuhkan oleh `app.py` tersedia pada path yang sesuai. Perintah di atas belum diuji ulang pada lingkungan baru dalam audit berbasis README ini.
+Notebook historis menggunakan beberapa tahap filtering dan *retraining*. Nilai R² **0,797** / MAE **Rp266,10 juta** adalah hasil RF pada subset **19.619 baris** di tengah notebook; eksperimen terakhir notebook menyaring dataset menjadi **20.821 baris** dan menyimpan Random Forest berbeda. Kedua hasil tidak boleh dicampur. Lihat `AUDIT_VALIDASI.md` untuk rekonstruksi eksperimentasinya.
 
-## Teknologi
+## Keterbatasan dan tindak lanjut
 
-- **Pemrosesan data:** Python, Pandas, NumPy
-- **Machine learning:** scikit-learn, Linear Regression, Random Forest Regression
-- **Visualisasi:** Matplotlib
-- **Aplikasi web:** Streamlit
-- **Pengembangan dan versi kode:** VS Code, Git, GitHub
+- Kualitas dan sumber data (termasuk apakah harga merupakan penawaran atau harga transaksi) belum diverifikasi.
+- Aturan batas data adalah keputusan lingkup eksperimen yang mungkin mengecualikan segmen pasar tertentu.
+- Variabel penting seperti usia bangunan, kondisi, sertifikat, akses, serta koordinat lokasi belum tersedia.
+- Pengujian baru memanfaatkan satu pembagian holdout; tambahkan *group cross-validation*, uji kestabilan waktu, pemeriksaan kesalahan menurut lokasi, dan pemeriksaan bias harga.
+- Jangan memasarkan hasil sebagai penilaian properti resmi; perlu pengujian eksternal dan pembaruan data.
 
-## Keterbatasan dan Pengembangan Selanjutnya
-
-- Prediksi merupakan **estimasi statistik**, bukan nilai appraisal resmi atau rekomendasi transaksi.
-- Performa yang dilaporkan bergantung pada data, pembagian evaluasi, serta proses preprocessing; belum tentu berlaku sama untuk properti atau periode lain.
-- Sumber, izin penggunaan, cakupan waktu, dan representativitas dataset perlu didokumentasikan lebih lengkap.
-- Detail validasi, parameter model, dan pencegahan **data leakage** perlu dikonfirmasi dari notebook sebelum klaim reproducibility yang lebih kuat dibuat.
-- Pengembangan berikutnya dapat mencakup pengujian pada data baru, analisis error per rentang harga, dan penjelasan faktor prediksi yang lebih mendalam.
-
-## Penulis
-
-**Zaky Ilham Ferdiansyah**  
-Program Studi Teknik Informatika · Universitas Dian Nuswantoro  
-2026
-
-[GitHub](https://github.com/zakyilhamf647586-spec) · [LinkedIn](https://www.linkedin.com/in/zaky-ilham-ferdiansyah/)
+**Author:** Zaky Ilham Ferdiansyah — Informatics Engineering, Universitas Dian Nuswantoro. [LinkedIn](https://www.linkedin.com/in/zaky-ilham-ferdiansyah/)
